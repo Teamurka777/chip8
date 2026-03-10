@@ -1,0 +1,36 @@
+name: Windows C Build (GCC/MSYS2)
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    - name: Setup MSYS2 and GCC
+      uses: msys2/setup-msys2@v2
+      with:
+        msystem: UCRT64
+        update: true
+        install: git mingw-w64-ucrt-x86_64-gcc make
+
+    - name: Compile C code
+      # The 'gcc' command is available in the MSYS2 shell
+      run: gcc source/main.c -o hello.exe
+
+    - name: Run the compiled program
+      run: |
+        ./hello.exe
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: chip8.exe
+        path: ./chip8.exe
+        retention-days: 1
