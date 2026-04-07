@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+ width="200"
+ height="200"
+ viewBox="0 0 200 200">
+<line x1="0" y1="100" x2="50" y2="100" stroke="black" stroke-width="3"/>
+<circle cx="100" cy="100" r="50" fill="white" stroke="black" stroke-width="3"  />
+<line x1="100" y1="100" x2="64" y2="135" stroke="black" stroke-width="3"/>
+<line x1="100" y1="100" x2="64" y2="64" stroke="black" stroke-width="3"/>
+<line x1="100" y1="100" x2="135" y2="64" stroke="black" stroke-width="3"/>
+<line x1="100" y1="100" x2="135" y2="135" stroke="black" stroke-width="3"/>
+<line x1="150" y1="100" x2="200" y2="100" stroke="black" stroke-width="3"/>
+</svg>
