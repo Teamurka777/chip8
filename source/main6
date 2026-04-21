@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_CARS 100
+
+typedef struct {
+    char brand[50];
+    char number[20];
+    char owner[50];
+} Car;
+
+int main() {
+    FILE *f = fopen("f.txt", "r");
+    FILE *g = fopen("g.txt", "w");
+    
+    if (!f || !g) {
+        printf("Ошибка открытия файлов.\n");
+        return 1;
+    }
+
+    Car cars[MAX_CARS];
+    int count = 0;
+
+    while (fscanf(f, "%s %s %s", cars[count].brand, cars[count].number, cars[count].owner) == 3) {
+        count++;
+    }
+
+    char target_brand[50] = "Toyota"; 
+    fprintf(g, "а) Владельцы и номера для марки %s:\n", target_brand);
+    for (int i = 0; i < count; i++) {
+        if (strcmp(cars[i].brand, target_brand) == 0) {
+            fprintf(g, "Фамилия: %s, Номер: %s\n", cars[i].owner, cars[i].number);
+        }
+    }
+
+    fprintf(g, "\nб) Количество автомобилей каждой марки:\n");
+    int processed[MAX_CARS] = {0}; 
+
+    for (int i = 0; i < count; i++) {
+        if (!processed[i]) {
+            int brand_count = 1;
+            for (int j = i + 1; j < count; j++) {
+                if (strcmp(cars[i].brand, cars[j].brand) == 0) {
+                    brand_count++;
+                    processed[j] = 1; 
+                }
+            }
+            fprintf(g, "Марка %s: %d\n", cars[i].brand, brand_count);
+        }
+    }
+
+    fclose(f);
+    fclose(g);
+    printf("Данные успешно обработаны и записаны в g.txt\n");
+    return 0;
+}
