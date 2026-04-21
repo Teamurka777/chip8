@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+void copy_content(const char *from, const char *to) {
+    FILE *src = fopen(from, "r");
+    FILE *dest = fopen(to, "w");
+    
+    if (src == NULL || dest == NULL) return;
+
+    int ch;
+    while ((ch = fgetc(src)) != EOF) {
+        fputc(ch, dest);
+    }
+
+    fclose(src);
+    fclose(dest);
+}
+
+int main() {
+ 
+    copy_content("f1.txt", "h.txt");
+
+    copy_content("f2.txt", "f1.txt");
+
+    copy_content("h.txt", "f2.txt");
+
+    printf("Обмен содержимым завершен.\n");
+
+    return 0;
+}
