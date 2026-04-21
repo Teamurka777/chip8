@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    FILE *f = fopen("f.txt", "r");
+    FILE *g = fopen("g.txt", "w");
+
+    if (f == NULL || g == NULL) {
+        printf("Ошибка при открытии файлов.\n");
+        return 1;
+    }
+
+    char word[1000];
+    int first_word = 1;
+
+    while (fscanf(f, "%s", word) == 1) {
+
+        if (strlen(word) > 1) {
+
+            if (!first_word) {
+                fputc(' ', g);
+            }
+            
+            fprintf(g, "%s", word);
+            first_word = 0; 
+        }
+    }
+
+    fclose(f);
+    fclose(g);
+
+    printf("Обработка завершена. Результат в файле g.txt\n");
+    return 0;
+}
+
