@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+void append_file(const char *source_name, FILE *dest_file) {
+    FILE *src = fopen(source_name, "r");
+    if (src == NULL) {
+        printf("Ошибка: не удалось открыть файл %s\n", source_name);
+        return;
+    }
+
+    int ch;
+    while ((ch = fgetc(src)) != EOF) {
+        fputc(ch, dest_file);
+    }
+
+    fclose(src);
+}
+
+int main() {
+    FILE *h = fopen("h.txt", "w");
+    
+    if (h == NULL) {
+        printf("Ошибка создания файла h.\n");
+        return 1;
+    }
+
+    append_file("f.txt", h);
+
+    append_file("g.txt", h);
+
+    fclose(h);
+
+    printf("Файлы f и g успешно объединены в файл h.\n");
+    return 0;
+}
+
+
