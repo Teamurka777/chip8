@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <math.h>
+#include <stdbool.h>
+
+bool is_perfect_square(int n) {
+    if (n < 0) return false;
+    int root = (int)sqrt(n);
+    return (root * root == n);
+}
+
+int main() {
+    FILE *f = fopen("f.txt", "r");
+    FILE *g = fopen("g.txt", "w");
+
+    if (f == NULL || g == NULL) {
+        printf("Ошибка при открытии файлов.\n");
+        return 1;
+    }
+
+    int num;
+    fprintf(g, "Результаты фильтрации:\n");
+
+
+    fprintf(g, "а) Чётные: ");
+    while (fscanf(f, "%d", &num) == 1) {
+        if (num % 2 == 0) fprintf(g, "%d ", num);
+    }
+    
+  
+    rewind(f);
+    fprintf(g, "\nб) Делятся на 3 и не делятся на 7: ");
+    while (fscanf(f, "%d", &num) == 1) {
+        if (num % 3 == 0 && num % 7 != 0) fprintf(g, "%d ", num);
+    }
+
+    rewind(f);
+    fprintf(g, "\nв) Точные квадраты: ");
+    while (fscanf(f, "%d", &num) == 1) {
+        if (is_perfect_square(num)) fprintf(g, "%d ", num);
+    }
+
+    fclose(f);
+    fclose(g);
+
+    printf("Данные успешно обработаны и записаны в файл g.txt\n");
+    return 0;
+}
+
